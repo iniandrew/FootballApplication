@@ -9,4 +9,9 @@
         android:id="@+id/navigation_match"
         android:title="@string/match"
         android:icon="@drawable/match_icon" />
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:title="@string/favorite"
+        android:icon="@drawable/ic_favorite" />
 </menu>

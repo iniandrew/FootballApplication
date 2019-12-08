@@ -11,7 +11,7 @@ interface MatchDetailUI {
     }
 
     interface Presenter {
-        fun getMatchDetail(eventId: Int)
-        fun getTeamDetail(idHomeTeam: Int, idAwayTeam: Int)
+        fun getMatchDetail(eventId: String)
+        fun getTeamDetail(idHomeTeam: String, idAwayTeam: String)
     }
 }

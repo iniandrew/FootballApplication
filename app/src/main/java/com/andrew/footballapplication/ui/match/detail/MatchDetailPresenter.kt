@@ -12,10 +12,10 @@ import org.json.JSONObject
 
 class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI.Presenter {
 
-    override fun getMatchDetail(eventId: Int) {
+    override fun getMatchDetail(eventId: String) {
         AndroidNetworking.get(APIEndpoint.MATCH_DETAIL)
             .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("eventId", eventId.toString())
+            .addPathParameter("eventId", eventId)
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsObject(MatchResponse::class.java, object: ParsedRequestListener<MatchResponse> {
@@ -32,10 +32,10 @@ class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI
             })
     }
 
-    override fun getTeamDetail(idHomeTeam: Int, idAwayTeam: Int) {
+    override fun getTeamDetail(idHomeTeam: String, idAwayTeam: String) {
         AndroidNetworking.get(APIEndpoint.TEAM_DETAIL)
             .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("teamId", idHomeTeam.toString())
+            .addPathParameter("teamId", idHomeTeam)
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object: JSONObjectRequestListener {
@@ -54,7 +54,7 @@ class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI
 
         AndroidNetworking.get(APIEndpoint.TEAM_DETAIL)
             .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("teamId", idAwayTeam.toString())
+            .addPathParameter("teamId", idAwayTeam)
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object: JSONObjectRequestListener {
