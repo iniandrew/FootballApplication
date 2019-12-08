@@ -79,8 +79,8 @@ class NextMatchFragment : Fragment(), MatchUI.View {
         rvNextMatch.adapter = adapter
     }
 
-    override fun showFailedLoad(error: String) {
-        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+    override fun showFailedLoad() {
+        Toast.makeText(context, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
     }
 
     override fun showListMatch(matchResponse: MatchResponse) {

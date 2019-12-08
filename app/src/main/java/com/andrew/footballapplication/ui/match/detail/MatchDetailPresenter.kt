@@ -26,7 +26,7 @@ class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil data dari server!")
+                    view.showFailedLoad()
                 }
 
             })
@@ -48,7 +48,7 @@ class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil data dari server!")
+                    view.showFailedLoad()
                 }
             })
 
@@ -67,7 +67,7 @@ class MatchDetailPresenter(private val view: MatchDetailUI.View) : MatchDetailUI
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil data dari server!")
+                    view.showFailedLoad()
                 }
             })
     }

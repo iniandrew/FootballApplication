@@ -23,7 +23,7 @@ class MatchPresenter(private val view: MatchUI.View) : MatchUI.Presenter{
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil Data dari Server!")
+                    view.showFailedLoad()
                 }
 
             })
@@ -41,7 +41,7 @@ class MatchPresenter(private val view: MatchUI.View) : MatchUI.Presenter{
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil Data dari Server!")
+                    view.showFailedLoad()
                 }
 
             })
@@ -58,12 +58,12 @@ class MatchPresenter(private val view: MatchUI.View) : MatchUI.Presenter{
                     try {
                         view.showListMatch(response!!)
                     } catch (e: Exception) {
-                        view.showFailedLoad("No Data")
+                        view.showFailedLoad()
                     }
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal Mengambil Data dari Server!")
+                    view.showFailedLoad()
                 }
 
             })

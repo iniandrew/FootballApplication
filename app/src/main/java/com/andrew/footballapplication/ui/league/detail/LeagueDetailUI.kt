@@ -4,7 +4,7 @@ import com.andrew.footballapplication.model.league.LeagueItem
 
 interface LeagueDetailUI {
     interface View {
-        fun showFailedLoad(error: String)
+        fun showFailedLoad()
         fun showLeagueDetail(item: LeagueItem)
     }
 

@@ -22,7 +22,7 @@ class LeagueDetailPresenter(private val view: LeagueDetailUI.View) : LeagueDetai
                 }
 
                 override fun onError(anError: ANError?) {
-                    view.showFailedLoad("Gagal mengambil data dari Server")
+                    view.showFailedLoad()
                 }
             })
     }

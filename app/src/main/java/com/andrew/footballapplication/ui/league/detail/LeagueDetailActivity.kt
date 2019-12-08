@@ -52,8 +52,8 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailUI.View {
         showLoading(true, progressBar)
     }
 
-    override fun showFailedLoad(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    override fun showFailedLoad() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
     }
 
     override fun showLeagueDetail(item: LeagueItem) {

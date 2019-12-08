@@ -94,8 +94,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
         tv_away_substitutes.text = item.awayLineupSubstitutes?.replace(';', ',') ?: "-"
     }
 
-    override fun showFailedLoad(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    override fun showFailedLoad() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
     }
 
     override fun showMatchDetail(matchItem: MatchItem) {

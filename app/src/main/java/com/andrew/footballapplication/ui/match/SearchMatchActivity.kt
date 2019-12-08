@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.andrew.footballapplication.model.match.MatchResponse
 import com.andrew.footballapplication.showLoading
 import com.andrew.footballapplication.ui.match.detail.MatchDetailActivity
 import com.andrew.footballapplication.visible
+import org.jetbrains.anko.appcompat.v7.coroutines.onClose
 import org.jetbrains.anko.startActivity
 
 class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
@@ -61,6 +63,9 @@ class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
             }
             override fun onQueryTextChange(newText: String?): Boolean = false
         })
+        searchView.onClose {
+            onBackPressed()
+        }
     }
 
     override fun setupRecyclerView() {
@@ -77,8 +82,8 @@ class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
         showLoading(true, progressBar)
     }
 
-    override fun showFailedLoad(error: String) {
-        tvEmpty.text = error
+    override fun showFailedLoad() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
         tvEmpty.visible()
         showLoading(false, progressBar)
     }
