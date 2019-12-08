@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MatchItem(
     @SerializedName("idEvent")
-    val idEvent: Int? = null,
+    val idEvent: String? = null,
 
     @SerializedName("strSport")
     val strSport: String? = null,
@@ -16,7 +16,7 @@ data class MatchItem(
     val eventName: String? = null,
 
     @SerializedName("intRound")
-    val matchRound: Int? = null,
+    val matchRound: String? = null,
 
     @SerializedName("dateEvent")
     val dateEvent: String? = null,
@@ -29,7 +29,7 @@ data class MatchItem(
 
     // HOME
     @SerializedName("idHomeTeam")
-    val idHomeTeam: Int? = null,
+    val idHomeTeam: String? = null,
 
     @SerializedName("strHomeTeam")
     val homeTeam: String? = null,
@@ -70,7 +70,7 @@ data class MatchItem(
 
     // AWAY
     @SerializedName("idAwayTeam")
-    val idAwayTeam: Int? = null,
+    val idAwayTeam: String? = null,
 
     @SerializedName("strAwayTeam")
     val awayTeam: String? = null,
