@@ -5,7 +5,7 @@ import com.andrew.footballapplication.model.match.MatchResponse
 interface MatchUI  {
     interface View {
         fun setupRecyclerView()
-        fun showFailedLoad(error: String)
+        fun showFailedLoad()
         fun showListMatch(matchResponse: MatchResponse)
     }
 

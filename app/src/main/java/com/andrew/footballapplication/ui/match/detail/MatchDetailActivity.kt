@@ -52,7 +52,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
         progressBar = findViewById(R.id.progress_bar)
         presenter = MatchDetailPresenter(this)
 
-        getMatchDetail()
         favoriteState()
 
         supportActionBar?.title = resources.getString(R.string.match_detail)
@@ -61,6 +60,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
 
     private fun getMatchDetail() {
         presenter.getMatchDetail(matchId)
+        menuItem?.findItem(R.id.add_to_favorite)?.isVisible = false
         showLoading(true, progressBar)
     }
 
@@ -94,8 +94,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
         tv_away_substitutes.text = item.awayLineupSubstitutes?.replace(';', ',') ?: "-"
     }
 
-    override fun showFailedLoad(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    override fun showFailedLoad() {
+        Toast.makeText(applicationContext, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
     }
 
     override fun showMatchDetail(matchItem: MatchItem) {
@@ -107,7 +107,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
         setupItemAwayTeam(matchItem)
 
         presenter.getTeamDetail(matchItem.idHomeTeam!!, matchItem.idAwayTeam!!)
-
+        menuItem?.findItem(R.id.add_to_favorite)?.isVisible = true
         showLoading(false, progressBar)
     }
 
@@ -125,6 +125,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
         menuItem = menu
+        getMatchDetail()
         setFavorite()
         return true
     }

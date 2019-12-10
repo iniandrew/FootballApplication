@@ -4,7 +4,7 @@ import com.andrew.footballapplication.model.match.MatchItem
 
 interface MatchDetailUI {
     interface View {
-        fun showFailedLoad(error: String)
+        fun showFailedLoad()
         fun showMatchDetail(matchItem: MatchItem)
         fun showHomeTeamBadge(homeTeamBadge: String?)
         fun showAwayTeamBadge(awayTeamBadge: String?)
