@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andrew.footballapplication.R
 import com.andrew.footballapplication.adapter.MatchAdapter
-import com.andrew.footballapplication.gone
+import com.andrew.footballapplication.utils.gone
 import com.andrew.footballapplication.model.match.MatchItem
 import com.andrew.footballapplication.model.match.MatchResponse
-import com.andrew.footballapplication.showLoading
+import com.andrew.footballapplication.network.ApiRepository
 import com.andrew.footballapplication.ui.match.detail.MatchDetailActivity
-import com.andrew.footballapplication.visible
+import com.andrew.footballapplication.utils.visible
+import com.google.gson.Gson
 import org.jetbrains.anko.appcompat.v7.coroutines.onClose
 import org.jetbrains.anko.startActivity
 
@@ -33,13 +34,13 @@ class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_match)
 
-        presenter = MatchPresenter(this)
+        presenter = MatchPresenter(this, ApiRepository(), Gson())
         progressBar = findViewById(R.id.progress_bar)
         recyclerView = findViewById(R.id.rv_match)
         tvEmpty = findViewById(R.id.tv_empty)
 
-        showLoading(false, progressBar)
         setupRecyclerView()
+        progressBar.gone()
 
         supportActionBar?.title = resources.getString(R.string.search_event)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -79,13 +80,11 @@ class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
 
     private fun getMatchByQuery(query: String) {
         presenter.getMatchByQuery(query)
-        showLoading(true, progressBar)
     }
 
     override fun showFailedLoad() {
         Toast.makeText(applicationContext, resources.getString(R.string.failed_load_data), Toast.LENGTH_SHORT).show()
         tvEmpty.visible()
-        showLoading(false, progressBar)
     }
 
     override fun showListMatch(matchResponse: MatchResponse) {
@@ -98,7 +97,14 @@ class SearchMatchActivity : AppCompatActivity(), MatchUI.View {
             tvEmpty.gone()
         }
         adapter.setData(matchList)
-        showLoading(false, progressBar)
+    }
+
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.gone()
     }
 
     override fun onSupportNavigateUp(): Boolean {

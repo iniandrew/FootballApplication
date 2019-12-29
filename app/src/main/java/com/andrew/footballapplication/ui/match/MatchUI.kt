@@ -7,6 +7,8 @@ interface MatchUI  {
         fun setupRecyclerView()
         fun showFailedLoad()
         fun showListMatch(matchResponse: MatchResponse)
+        fun showLoading()
+        fun hideLoading()
     }
 
     interface Presenter {

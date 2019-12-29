@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andrew.footballapplication.R
 import com.andrew.footballapplication.adapter.MatchFavoriteAdapter
 import com.andrew.footballapplication.database.database
-import com.andrew.footballapplication.gone
+import com.andrew.footballapplication.utils.gone
 import com.andrew.footballapplication.model.match.MatchFavorite
 import com.andrew.footballapplication.ui.match.detail.MatchDetailActivity
-import com.andrew.footballapplication.visible
+import com.andrew.footballapplication.utils.visible
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.support.v4.startActivity

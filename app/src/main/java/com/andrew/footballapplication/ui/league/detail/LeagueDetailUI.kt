@@ -6,9 +6,11 @@ interface LeagueDetailUI {
     interface View {
         fun showFailedLoad()
         fun showLeagueDetail(item: LeagueItem)
+        fun showLoading()
+        fun hideLoading()
     }
 
     interface Presenter {
-        fun getLeagueDetail(leagueId: Int?)
+        fun getLeagueDetail(leagueId: Int)
     }
 }

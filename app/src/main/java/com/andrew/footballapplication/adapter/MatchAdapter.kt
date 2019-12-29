@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andrew.footballapplication.R
-import com.andrew.footballapplication.getDateFormat
-import com.andrew.footballapplication.getTimeFormat
+import com.andrew.footballapplication.utils.getDateFormat
+import com.andrew.footballapplication.utils.getTimeFormat
 import com.andrew.footballapplication.model.match.MatchItem
 import kotlinx.android.synthetic.main.match_item.view.*
 
@@ -34,8 +34,10 @@ class MatchAdapter(private val listener: (MatchItem) -> Unit) : RecyclerView.Ada
     inner class PreviousMatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(items: MatchItem, listener: (MatchItem) -> Unit) {
             with(itemView) {
-                tv_date_event.text = getDateFormat(items.dateEvent)
-                tv_time_event.text = getTimeFormat(items.eventTime)
+                tv_date_event.text =
+                    getDateFormat(items.dateEvent)
+                tv_time_event.text =
+                    getTimeFormat(items.eventTime)
                 tv_home_score.text = items.homeScore ?: "-"
                 tv_home_team.text = items.homeTeam
                 tv_away_score.text = items.awayScore ?: "-"

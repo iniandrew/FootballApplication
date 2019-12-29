@@ -8,16 +8,19 @@ import android.view.MenuItem
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.andrew.footballapplication.R
+import com.andrew.footballapplication.*
 import com.andrew.footballapplication.database.database
-import com.andrew.footballapplication.getDateFormat
-import com.andrew.footballapplication.getTimeFormat
-import com.andrew.footballapplication.model.TeamItem
+import com.andrew.footballapplication.model.team.TeamItem
 import com.andrew.footballapplication.model.match.MatchFavorite
 import com.andrew.footballapplication.model.match.MatchItem
-import com.andrew.footballapplication.showLoading
+import com.andrew.footballapplication.network.ApiRepository
+import com.andrew.footballapplication.utils.getDateFormat
+import com.andrew.footballapplication.utils.getTimeFormat
+import com.andrew.footballapplication.utils.gone
+import com.andrew.footballapplication.utils.visible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -40,7 +43,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
     private var eventTime: String? = null
     private var homeScore: String? = null
     private var awayScore: String? = null
-    private lateinit var teamItem: TeamItem
     private lateinit var presenter: MatchDetailPresenter
     private lateinit var progressBar: ProgressBar
 
@@ -50,7 +52,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
 
         matchId = intent.getStringExtra(EXTRA_MATCH)!!
         progressBar = findViewById(R.id.progress_bar)
-        presenter = MatchDetailPresenter(this)
+        presenter = MatchDetailPresenter(this, ApiRepository(), Gson())
 
         favoriteState()
 
@@ -61,7 +63,6 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
     private fun getMatchDetail() {
         presenter.getMatchDetail(matchId)
         menuItem?.findItem(R.id.add_to_favorite)?.isVisible = false
-        showLoading(true, progressBar)
     }
 
     private fun setupItemHomeTeam(item: MatchItem) {
@@ -106,19 +107,25 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
         setupItemHomeTeam(matchItem)
         setupItemAwayTeam(matchItem)
 
-        presenter.getTeamDetail(matchItem.idHomeTeam!!, matchItem.idAwayTeam!!)
+        presenter.getHomeTeamBadge(matchItem.idHomeTeam!!)
+        presenter.getAwayTeamBadge(matchItem.idAwayTeam!!)
         menuItem?.findItem(R.id.add_to_favorite)?.isVisible = true
-        showLoading(false, progressBar)
     }
 
-    override fun showHomeTeamBadge(homeTeamBadge: String?) {
-        teamItem = TeamItem(homeTeamBadge)
-        Glide.with(applicationContext).load(teamItem.strHomeTeamBadge).apply(RequestOptions().override(250,250)).into(img_home_badge)
+    override fun showHomeTeamBadge(homeTeamBadge: List<TeamItem>) {
+        Glide.with(applicationContext).load(homeTeamBadge[0].teamBadge).apply(RequestOptions().override(250,250)).into(img_home_badge)
     }
 
-    override fun showAwayTeamBadge(awayTeamBadge: String?) {
-        teamItem = TeamItem(null, awayTeamBadge)
-        Glide.with(applicationContext).load(teamItem.strAwayTeamBadge).apply(RequestOptions().override(250,250)).into(img_away_badge)
+    override fun showAwayTeamBadge(awayTeamBadge: List<TeamItem>) {
+        Glide.with(applicationContext).load(awayTeamBadge[0].teamBadge).apply(RequestOptions().override(250,250)).into(img_away_badge)
+    }
+
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.gone()
     }
 
 
