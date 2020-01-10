@@ -46,8 +46,8 @@
 
     <string name="image_banner">Image Banner</string>
     <string name="versus">VS</string>
-    <string name="previous_match">Previous Match</string>
-    <string name="next_match">Next Match</string>
+    <string name="previous_match">Previous</string>
+    <string name="next_match">Next</string>
     <string name="overview">Overview</string>
     <string name="goals">Goals</string>
     <string name="shots">Shots</string>
@@ -59,9 +59,23 @@
     <string name="substitutes">Substitutes</string>
     <string name="search">Search</string>
     <string name="search_event">Search Event</string>
+    <string name="search_team">Search Team</string>
     <string name="empty_result">No Data</string>
-    <string name="add_to_favorite">Match has been added to favorite</string>
-    <string name="remove_from_favorite">Match has been remove from favorite</string>
+    <string name="add_to_favorite">Successfully added</string>
+    <string name="remove_from_favorite">Successfully deleted from favorite</string>
     <string name="match_detail">Match Detail</string>
     <string name="failed_load_data">Failed to get data from server</string>
+
+    <string name="classement">Classement</string>
+    <string name="team">Team</string>
+
+    <string name="played">P</string>
+    <string name="goalsFor">GF</string>
+    <string name="goalsAgainst">GA</string>
+    <string name="goalsDifference">GD</string>
+    <string name="win">W</string>
+    <string name="draw">D</string>
+    <string name="loss">L</string>
+    <string name="total">T</string>
+    <string name="number">No</string>
 </resources>

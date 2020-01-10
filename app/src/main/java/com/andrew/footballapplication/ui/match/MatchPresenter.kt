@@ -1,71 +1,72 @@
 package com.andrew.footballapplication.ui.match
 
-import com.andrew.footballapplication.APIEndpoint
-import com.andrew.footballapplication.BuildConfig
 import com.andrew.footballapplication.model.match.MatchResponse
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.ParsedRequestListener
+import com.andrew.footballapplication.network.ApiRepository
+import com.andrew.footballapplication.network.TheSportDBApi
+import com.andrew.footballapplication.utils.CoroutineContextProvider
+import com.google.gson.Gson
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.IOException
 import java.lang.Exception
 
-class MatchPresenter(private val view: MatchUI.View) : MatchUI.Presenter{
+class MatchPresenter(
+    private val view: MatchUI.View,
+    private val apiRepository: ApiRepository,
+    private val gson: Gson,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()) : MatchUI.Presenter {
 
     override fun getPreviousMatch(leagueId: Int) {
-        AndroidNetworking.get(APIEndpoint.PREVIOUS_MATCH)
-            .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("leagueId", leagueId.toString())
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsObject(MatchResponse::class.java, object: ParsedRequestListener<MatchResponse> {
-                override fun onResponse(response: MatchResponse) {
-                    view.showListMatch(response)
-                }
-
-                override fun onError(anError: ANError?) {
-                    view.showFailedLoad()
-                }
-
-            })
+        view.showLoading()
+        GlobalScope.launch(context.main ) {
+            try {
+                val data = gson.fromJson(
+                    apiRepository.doRequest(TheSportDBApi.getPreviousMatch(leagueId)).await(),
+                    MatchResponse::class.java
+                )
+                view.showListMatch(data)
+                view.hideLoading()
+            } catch (e: IOException) {
+                view.showFailedLoad()
+            }
+        }
     }
 
     override fun getNextMatch(leagueId: Int) {
-        AndroidNetworking.get(APIEndpoint.NEXT_MATCH)
-            .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("leagueId", leagueId.toString())
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsObject(MatchResponse::class.java, object: ParsedRequestListener<MatchResponse> {
-                override fun onResponse(response: MatchResponse) {
-                    view.showListMatch(response)
-                }
+        view.showLoading()
 
-                override fun onError(anError: ANError?) {
-                    view.showFailedLoad()
-                }
-
-            })
+        GlobalScope.launch(context.main ) {
+            try {
+                val data = gson.fromJson(
+                    apiRepository.doRequest(TheSportDBApi.getNextMatch(leagueId)).await(),
+                    MatchResponse::class.java
+                )
+                view.showListMatch(data)
+                view.hideLoading()
+            } catch (e: IOException) {
+                view.showFailedLoad()
+            }
+        }
     }
 
     override fun getMatchByQuery(query: String) {
-        AndroidNetworking.get(APIEndpoint.SEARCH_MATCH)
-            .addPathParameter("api_key", BuildConfig.TSDB_API_KEY)
-            .addPathParameter("query", query)
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsObject(MatchResponse::class.java, object : ParsedRequestListener<MatchResponse> {
-                override fun onResponse(response: MatchResponse?) {
-                    try {
-                        view.showListMatch(response!!)
-                    } catch (e: Exception) {
-                        view.showFailedLoad()
-                    }
-                }
+        view.showLoading()
 
-                override fun onError(anError: ANError?) {
+        GlobalScope.launch(context.main ) {
+            try {
+                val data = gson.fromJson(
+                    apiRepository.doRequest(TheSportDBApi.getMatchByQuery(query)).await(),
+                    MatchResponse::class.java
+                )
+                try {
+                    view.showListMatch(data)
+                } catch (e: Exception) {
                     view.showFailedLoad()
                 }
-
-            })
+                view.hideLoading()
+            } catch (e: IOException) {
+                view.showFailedLoad()
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 
 import com.andrew.footballapplication.R
 import com.andrew.footballapplication.adapter.ViewPagerAdapter
+import com.andrew.footballapplication.ui.match.classement.ClassementFragment
 import com.andrew.footballapplication.ui.match.next.NextMatchFragment
 import com.andrew.footballapplication.ui.match.previous.PreviousMatchFragment
 import com.google.android.material.tabs.TabLayout
@@ -44,7 +45,8 @@ class MatchFragment : Fragment() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager,
             mapOf(
                 getString(R.string.previous_match) to PreviousMatchFragment(),
-                getString(R.string.next_match) to NextMatchFragment()
+                getString(R.string.next_match) to NextMatchFragment(),
+                getString(R.string.classement) to ClassementFragment()
             ))
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)

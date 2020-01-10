@@ -6,6 +6,7 @@ import com.andrew.footballapplication.R
 import com.andrew.footballapplication.ui.favorite.FavoriteFragment
 import com.andrew.footballapplication.ui.league.LeagueFragment
 import com.andrew.footballapplication.ui.match.MatchFragment
+import com.andrew.footballapplication.ui.team.TeamFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_match -> {
                     loadMatchFragment()
+                }
+                R.id.navigation_team -> {
+                    loadTeamFragment()
                 }
                 R.id.navigation_favorite -> {
                     loadFavoriteFragment()
@@ -45,6 +49,11 @@ class MainActivity : AppCompatActivity() {
     private fun loadMatchFragment() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MatchFragment()).commit()
+    }
+
+    private fun loadTeamFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, TeamFragment()).commit()
     }
 
     private fun loadFavoriteFragment() {

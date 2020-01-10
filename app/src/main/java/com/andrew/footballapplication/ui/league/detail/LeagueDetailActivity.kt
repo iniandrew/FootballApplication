@@ -7,10 +7,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.andrew.footballapplication.R
+import com.andrew.footballapplication.utils.gone
 import com.andrew.footballapplication.model.league.LeagueItem
-import com.andrew.footballapplication.showLoading
+import com.andrew.footballapplication.network.ApiRepository
+import com.andrew.footballapplication.utils.visible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
 
 class LeagueDetailActivity : AppCompatActivity(), LeagueDetailUI.View {
 
@@ -47,9 +50,8 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailUI.View {
     }
 
     private fun getLeagueDetail() {
-        presenter = LeagueDetailPresenter(this)
+        presenter = LeagueDetailPresenter(this, ApiRepository(), Gson())
         presenter.getLeagueDetail(intent.getIntExtra(EXTRA_LEAGUE_ID, 0))
-        showLoading(true, progressBar)
     }
 
     override fun showFailedLoad() {
@@ -64,10 +66,15 @@ class LeagueDetailActivity : AppCompatActivity(), LeagueDetailUI.View {
         tvLeagueCountry.text = item.leagueCountry
         tvLeagueFormedYear.text = item.leagueFormedYear
         tvLeagueWebsite.text = item.leagueWebsite
-
         supportActionBar?.title = item.leagueName
+    }
 
-        showLoading(false, progressBar)
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.gone()
     }
 
     override fun onSupportNavigateUp(): Boolean {

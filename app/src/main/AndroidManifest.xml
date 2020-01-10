@@ -14,6 +14,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.team.detail.TeamDetailActivity"></activity>
+        <activity android:name=".ui.team.SearchTeamActivity" />
         <activity android:name=".ui.match.SearchMatchActivity" />
         <activity android:name=".ui.match.detail.MatchDetailActivity" />
         <activity android:name=".ui.league.detail.LeagueDetailActivity" />

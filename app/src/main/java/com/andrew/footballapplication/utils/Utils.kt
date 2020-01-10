@@ -1,25 +1,17 @@
-package com.andrew.footballapplication
+package com.andrew.footballapplication.utils
 
 import android.view.View
-import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun View.visible() {
-    visibility = View.VISIBLE
+    isVisible = true
 }
 
 fun View.gone() {
-    visibility = View.GONE
-}
-
-fun showLoading(state: Boolean, progressBar: ProgressBar) {
-    if (state) {
-        progressBar.visible()
-    } else {
-        progressBar.gone()
-    }
+    isVisible = false
 }
 
 fun formatDate(date: String, format: String, isDate: Boolean): String {
@@ -40,9 +32,17 @@ fun formatDate(date: String, format: String, isDate: Boolean): String {
 }
 
 fun getDateFormat(date: String?): String {
-    return formatDate(date.toString(), "EEE, dd MMM yyyy", true)
+    return formatDate(
+        date.toString(),
+        "EEE, dd MMM yyyy",
+        true
+    )
 }
 
 fun getTimeFormat(date: String?): String {
-    return formatDate(date.toString(), "HH:mm", false)
+    return formatDate(
+        date.toString(),
+        "HH:mm",
+        false
+    )
 }

@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andrew.footballapplication.R
-import com.andrew.footballapplication.getDateFormat
-import com.andrew.footballapplication.getTimeFormat
-import com.andrew.footballapplication.model.match.MatchFavorite
+import com.andrew.footballapplication.utils.getDateFormat
+import com.andrew.footballapplication.utils.getTimeFormat
+import com.andrew.footballapplication.model.favorite.MatchFavorite
 import kotlinx.android.synthetic.main.match_item.view.*
 
 class MatchFavoriteAdapter(private val listener: (MatchFavorite) -> Unit) : RecyclerView.Adapter<MatchFavoriteAdapter.MatchFavoriteViewHolder>() {
@@ -34,8 +34,10 @@ class MatchFavoriteAdapter(private val listener: (MatchFavorite) -> Unit) : Recy
     inner class MatchFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItem(items: MatchFavorite, listener: (MatchFavorite) -> Unit) {
             with(itemView) {
-                tv_date_event.text = getDateFormat(items.dateEvent)
-                tv_time_event.text = getTimeFormat(items.timeEvent)
+                tv_date_event.text =
+                    getDateFormat(items.dateEvent)
+                tv_time_event.text =
+                    getTimeFormat(items.timeEvent)
                 tv_home_score.text = items.homeScore ?: "-"
                 tv_home_team.text = items.homeTeam
                 tv_away_score.text = items.awayScore ?: "-"
