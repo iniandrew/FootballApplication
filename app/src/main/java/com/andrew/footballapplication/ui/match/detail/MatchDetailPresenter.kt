@@ -42,7 +42,7 @@ class MatchDetailPresenter(
                 apiRepository.doRequest(TheSportDBApi.getTeamBadge(teamId)).await(),
                 TeamResponse::class.java
             )
-            view.showHomeTeamBadge(data.result)
+            view.showHomeTeamBadge(data.results)
         }
     }
 
@@ -52,7 +52,7 @@ class MatchDetailPresenter(
                 apiRepository.doRequest(TheSportDBApi.getTeamBadge(teamId)).await(),
                 TeamResponse::class.java
             )
-            view.showAwayTeamBadge(data.result)
+            view.showAwayTeamBadge(data.results)
         }
     }
 }

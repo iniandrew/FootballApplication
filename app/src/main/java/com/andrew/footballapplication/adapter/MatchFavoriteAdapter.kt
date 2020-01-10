@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andrew.footballapplication.R
 import com.andrew.footballapplication.utils.getDateFormat
 import com.andrew.footballapplication.utils.getTimeFormat
-import com.andrew.footballapplication.model.match.MatchFavorite
+import com.andrew.footballapplication.model.favorite.MatchFavorite
 import kotlinx.android.synthetic.main.match_item.view.*
 
 class MatchFavoriteAdapter(private val listener: (MatchFavorite) -> Unit) : RecyclerView.Adapter<MatchFavoriteAdapter.MatchFavoriteViewHolder>() {

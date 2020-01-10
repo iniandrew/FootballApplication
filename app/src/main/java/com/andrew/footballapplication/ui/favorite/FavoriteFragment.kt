@@ -6,29 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 
 import com.andrew.footballapplication.R
-import com.andrew.footballapplication.adapter.MatchFavoriteAdapter
-import com.andrew.footballapplication.database.database
-import com.andrew.footballapplication.utils.gone
-import com.andrew.footballapplication.model.match.MatchFavorite
-import com.andrew.footballapplication.ui.match.detail.MatchDetailActivity
-import com.andrew.footballapplication.utils.visible
-import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.select
-import org.jetbrains.anko.support.v4.startActivity
+import com.andrew.footballapplication.adapter.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
 
 /**
  * A simple [Fragment] subclass.
  */
 class FavoriteFragment : Fragment() {
 
-    private lateinit var tvEmpty: TextView
-    private lateinit var adapter: MatchFavoriteAdapter
-    private lateinit var rvFavorite: RecyclerView
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,32 +31,22 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvFavorite = view.findViewById(R.id.rv_favorite)
-        tvEmpty = view.findViewById(R.id.tv_empty)
-        setupRecyclerView()
+
+        viewPager = view.findViewById(R.id.viewPager)
+        tabLayout = view.findViewById(R.id.tabLayout)
+        tabLayout.setupWithViewPager(viewPager)
+        setupViewPager(viewPager)
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFavorite()
+    private fun setupViewPager(viewPager: ViewPager) {
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager,
+            mapOf(
+                getString(R.string.match) to MatchFavoriteFragment(),
+                getString(R.string.team) to TeamFavoriteFragment()
+            ))
+        viewPager.adapter = viewPagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
-    private fun setupRecyclerView() {
-        rvFavorite.layoutManager = LinearLayoutManager(context)
-        rvFavorite.setHasFixedSize(true)
-        adapter = MatchFavoriteAdapter { data ->
-            startActivity<MatchDetailActivity>(MatchDetailActivity.EXTRA_MATCH to data.idEvent)
-        }
-        rvFavorite.adapter = adapter
-    }
-
-    private fun showFavorite() {
-        context?.database?.use {
-            val result = select(MatchFavorite.TABLE_FAVORITE)
-            val favorite = result.parseList(classParser<MatchFavorite>())
-            adapter.setData(favorite)
-            if (favorite.isEmpty()) tvEmpty.visible() else tvEmpty.gone()
-        }
-    }
 
 }

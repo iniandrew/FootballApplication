@@ -1,4 +1,4 @@
-package com.andrew.footballapplication.model.match
+package com.andrew.footballapplication.model.favorite
 
 data class MatchFavorite (
     val id: Long?,

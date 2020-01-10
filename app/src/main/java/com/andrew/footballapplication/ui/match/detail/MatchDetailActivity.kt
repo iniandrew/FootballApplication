@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import com.andrew.footballapplication.*
 import com.andrew.footballapplication.database.database
 import com.andrew.footballapplication.model.team.TeamItem
-import com.andrew.footballapplication.model.match.MatchFavorite
+import com.andrew.footballapplication.model.favorite.MatchFavorite
 import com.andrew.footballapplication.model.match.MatchItem
 import com.andrew.footballapplication.network.ApiRepository
 import com.andrew.footballapplication.utils.getDateFormat
@@ -181,7 +181,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailUI.View {
     private fun removeFromFavorite() {
         try {
             database.use {
-                delete(MatchFavorite.TABLE_FAVORITE, "(ID_EVENT = {id})",
+                delete(
+                    MatchFavorite.TABLE_FAVORITE, "(ID_EVENT = {id})",
                     "id" to matchId)
             }
             Toast.makeText(this, resources.getText(R.string.remove_from_favorite).toString(), Toast.LENGTH_SHORT).show()

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class TeamResponse(
     @SerializedName("teams")
-    val result: MutableList<TeamItem>
+    val results: MutableList<TeamItem>
 )

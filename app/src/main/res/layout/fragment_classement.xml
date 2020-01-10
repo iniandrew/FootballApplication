@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.match.next.NextMatchFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.match.classement.ClassementFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,23 +27,38 @@
                 android:padding="16dp" />
         </LinearLayout>
 
+        <include
+            android:id="@+id/include"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/classement_item_header"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_layout"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_next_match"
+            android:id="@+id/rv_classement"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_layout"
-            tools:listitem="@layout/match_item" />
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            tools:listitem="@layout/classement_item" />
 
         <ProgressBar
-            android:id="@+id/next_match_progressBar"
+            android:id="@+id/classement_progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="0dp"
             android:layout_height="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/rv_next_match"
+            app:layout_constraintEnd_toEndOf="@+id/rv_classement"
             app:layout_constraintHorizontal_bias="0.463"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
